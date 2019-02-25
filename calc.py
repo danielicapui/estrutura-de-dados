@@ -15,10 +15,11 @@ class Calc:
        return self.a*self.b
 
    def division(self):
-       if b==0:
+       if self.b==0:
            return False
        else:
-           return self.a/self.b
+           return self.a/ self.b
+           
 
 if __name__=='__calc__':
     Calc()
