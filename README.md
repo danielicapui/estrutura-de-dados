@@ -1,2 +1,2 @@
-# fun-es
-Apresenta cetas funções úteis 
+﻿# fun-es
+Apresenta certas funções úteis 
