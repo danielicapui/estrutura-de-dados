@@ -1,2 +1,2 @@
-﻿# fun-es
-Apresenta certas funções úteis 
+﻿Calculadora
+Apresenta certas funções úteis.
