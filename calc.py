@@ -19,7 +19,9 @@ class Calc:
            return False
        else:
            return self.a/ self.b
-           
-
+   def potencia(self):
+      return self.a**self.b
+   def raiz_quadrada(self):
+      return self.a**(1/b)
 if __name__=='__calc__':
     Calc()
