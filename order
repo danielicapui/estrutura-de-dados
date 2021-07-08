@@ -1,0 +1,308 @@
+rom random import *
+import time
+#bubble_sort
+def bubble_sort(usagi):
+    inicio = time.time()
+    for ino in range(len(usagi)-1,0,-1):
+        for elem in range(ino):
+            if usagi[elem]>usagi[elem+1]:
+                temp = usagi[elem]
+                usagi[elem] = usagi[elem+1]
+                usagi[elem+1] = temp
+                del(temp)
+    fim = time.time()
+    s=fim-inicio
+    print("Tempo de bubble: {:.6f} ".format(s))
+    del(elem)
+    del(ino)
+    del(fim)
+    del(inicio)
+    del(s)
+    return usagi
+ #fim bubble_sort
+#Selection_sort
+def selection_sort(usagi):
+    inicio = time.time()
+    s=-1
+    for t in range(0,s+len(usagi)):
+        minimo_valor=t
+        for r in range(t+1,len(usagi)):
+             if usagi[r] < usagi[minimo_valor]:
+                minimo_valor = r
+        
+        usagi[t],usagi[minimo_valor] = usagi[minimo_valor],usagi[t]
+    fim = time.time()
+    s=fim-inicio
+    print("Tempo de selection: {:.6f} ".format(s))
+    del(t)
+    del(r)
+    del(minimo_valor)
+    del(fim)
+    del(inicio)
+    del(s)
+    return usagi
+#fim selection_sort
+#recursidade merge_sort
+def ordem_merge(usagi):
+    inicio = time.time()
+    ordem_meio(usagi,0,-1+len(usagi))
+    fim = time.time()
+    s=fim-inicio
+    print("Tempo de merge_sort: {:.6f} ".format(s))
+    del(fim)
+    del(inicio)
+    del(s)
+    return usagi
+def ordem_meio(usagi,inicio,fim):
+    if inicio>=fim:
+        return
+    meio =(fim+inicio)//(2)
+    
+    ordem_meio(usagi,inicio,meio)
+    ordem_meio(usagi,1+meio,fim)
+    
+    merge_sort(usagi,inicio,fim)
+    
+def merge_sort(usagi,inicio,fim):
+    usagi[inicio: 1+fim] = sorted(usagi[inicio: 1+fim])
+    
+#Fim merge_sort    
+
+
+##quick_sort em trabalho, deep recursidade
+def particao(usagi,e_esq,e_dir):
+    #primeiro escolhe um pivo
+    e_pivo=usagi[e_dir]
+    rabbit=e_esq-1
+    for elem in range(e_esq,e_dir):
+        
+        if usagi[elem]<=e_pivo:
+                rabbit +=1
+                ino=usagi[rabbit]
+                
+                usagi[rabbit]=usagi[elem]
+                usagi[elem]=ino
+                #print(usagi[elem])
+                #print(usagi[rabbit])
+                del(ino)
+    ino=usagi[e_dir]
+    usagi[e_dir]=usagi[1+rabbit]
+    usagi[1+rabbit]=ino
+    del(ino)
+    return 1+rabbit
+def quick_sort(usagi,e_esq,e_dir):
+    if len(usagi)==1:
+        return usagi
+    if e_esq < e_dir:
+        e_pivo = particao(usagi,e_esq,e_dir)
+        
+        quick_sort(usagi,e_esq,e_pivo -1)
+        quick_sort(usagi,e_pivo + 1,e_dir)
+#fim do quick_sort
+#inserção_sort
+def insert_sort(usagi):
+    inicio=time.time()
+    t=-1
+    for elem in range(0,len(usagi)):
+        elem_inserido=usagi[elem]
+        while elem>0 and usagi[t+elem]>elem_inserido:
+            usagi[elem]=usagi[elem+t]
+            elem=elem+t
+        usagi[elem]=elem_inserido
+    fim=time.time()
+    t=fim-inicio
+    print("Tempo de insert_sort: {:.6f}".format(t))
+    del(t)
+    del(elem)
+    del(elem_inserido)
+    del(fim)
+    del(inicio)
+    return usagi
+##fim insert sort
+##shell_sort
+def shell_sort(usagi):
+    inicio=time.time()
+    d=2
+    rabbit = len(usagi)//d
+    while rabbit > 0:
+      for p_inicio in range(rabbit):
+        ordem_inserir(usagi, p_inicio, rabbit)
+
+      rabbit = rabbit//d
+    fim=time.time()
+    d=fim-inicio
+    print("Tempo de shellSort: {:.6f}".format(d))
+    del(d)
+    del(p_inicio)
+    del(rabbit)
+    del(fim)
+    del(inicio)
+    return usagi
+##função auxiliar para as trocas e movimentações
+def ordem_inserir(usagi,inicio,incremento):
+    for t in range(inicio+incremento,len(usagi),incremento):
+
+        ino = usagi[t]
+        pos = t
+        ##print("oi"
+        while pos>=incremento and usagi[pos-incremento]>ino:
+            ##print("chegou aqui")
+            usagi[pos]=usagi[pos-incremento]
+            pos = pos-incremento
+            
+        usagi[pos]=ino
+        #print(usagi[pos])
+##fim do shell_sort finalmente
+##heap_sort
+def to_heap(usagi,tam,i):
+    direita=2+2*i 
+    esquerda=1+2*i
+    maior=i
+    if esquerda<tam and usagi[i] < usagi[esquerda]:
+        maior=esquerda
+        #print(maior)
+    if direita < tam and usagi[maior] < usagi[direita]:
+        #print(maior)
+        maior= direita
+    if maior != i:
+        rabbit=usagi[maior]
+        usagi[maior]=usagi[i]
+        usagi[i]=rabbit
+        del(rabbit)
+        del(direita)
+        del(esquerda)
+        del(i)
+        to_heap(usagi,tam,maior)
+        
+def heap_sort(usagi):
+    inicio=time.time()
+    for ino in range((len(usagi)//2)-1,-1,-1):
+        #print("ino")
+        to_heap(usagi,len(usagi),ino)
+    for rabbit in range(len(usagi)-1,0,-1):
+        sakura=usagi[rabbit]
+        usagi[rabbit]=usagi[0]
+        usagi[0]=sakura
+        #print(f"{usagi[i] ,{usagi[0]}")
+        del(sakura)
+        to_heap(usagi,rabbit,0)
+    fim = time.time()
+    s=fim-inicio
+    print("Tempo de heap_sort: {:.6f} ".format(s))
+    del(inicio)
+    del(rabbit)
+    del(fim)
+    del(s)
+    del(ino)
+    return usagi
+#fim heap_sort
+
+##função de gerar vetor aleatório, e para deixar aleatorio multipliquei o resultado
+def gerar_aleatorio(tamanho=10000):
+    inicio = time.time()
+    usagi=[]
+    for t in range(tamanho):
+        s=randrange(1,40000)
+        y=randrange(1,90000)
+        s=s*y
+        usagi.append(s)
+    fim = time.time()
+    s=fim-inicio
+    print("Tempo de geração: {:.6f} ".format(s))
+    del(fim)
+    del(inicio)
+    del(s)
+    del(y)
+    return usagi
+##função do tempo,sem utilidade
+def medir_tempo(test1):
+
+    inicio = time.time()
+    ##adicione um algoritmo 
+    fim = time.time()
+    print(fim - inicio)
+
+##verifica se está ordenado
+def ver_ordem(usagi):
+    for t in range(len(usagi)-1):
+        if usagi[t]>usagi[t+1]:
+            del(t)
+            return "True:Os elementos não estão organizados"
+    del(t)
+    return "False: Os elementos estão organizados"
+##principal função
+def main():
+    #semente original
+    tamanho=int(input("Digite o tamanho dos vetores: "))
+    
+    
+    usagi=gerar_aleatorio(tamanho)
+    
+    #ino=[]
+    print("Teste para tamanho = {}".format(tamanho))
+    #copias
+    test1=usagi[:]
+    test2=usagi[:]
+    test3=usagi[:]
+    test4=usagi[:]
+    test5=usagi[:]
+    test6=usagi[:]
+    test7=usagi[:]
+    
+    #chamadas das funções de ordenação
+    ordem_merge(test1)
+    insert_sort(test2)
+    selection_sort(test3)
+    bubble_sort(test4)
+    shell_sort(test5)
+    heap_sort(test6)
+    #quick_sort
+    inicio=time.time()
+    quick_sort(test7,0,len(test7)-1)
+    fim=time.time()
+    d=fim-inicio
+    print("Tempo de quick_sort: {:.6f}".format(d))
+    
+    
+    # mostrar se esta organizado
+    print(ver_ordem(test1))
+    print(ver_ordem(test2))
+    print(ver_ordem(test3))
+    print(ver_ordem(test4))
+    print(ver_ordem(test5))
+    print(ver_ordem(test6))
+    print(ver_ordem(test7))
+    print("Testando com vetor original")
+    print(ver_ordem(usagi))
+    
+    #deleta as variaveis 
+    del(test1)
+    del(test2)
+    del(test3)
+    del(test4)
+    del(test5)
+    del(test6)
+    del(test7)
+    del(usagi)
+    return 0
+    
+    ##ver_ordem(test5)
+    #print(test5)
+## Testes e verificações
+    # for t in range(len(test3)-1):
+        # s=test3[t+1]
+        # if test3[t]>s:
+            # print("True")
+    # print("False")
+    #medir tempo de merge_sort
+    # inicio = time.time()
+    #medir_tempo(test1)
+    # print("Organizando")
+    # print(quick_sort(test3,0,len(test3)-1))
+    # print("orooooooooooooooooooooooooooooo")
+    # print(bubble_sort(test1))
+    # print("selecton sort")
+    # print(selection_sort(test2))# fim = time.time()
+    # s=fim-inicio
+    # print("Tempo de merge_sort: {:.6f} ".format(s))
+    #fim de medir tempo
