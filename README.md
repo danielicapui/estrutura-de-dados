@@ -1,2 +1,1 @@
-﻿Calculadora
-Apresenta certas funções úteis.
+Algoritmos de ordenação da disciplina estrutura de dados
